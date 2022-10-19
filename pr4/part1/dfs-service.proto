@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+
+
+package dfs_service;
+
+import "google/protobuf/timestamp.proto";
+
+service DFSService {
+
+    // Add your service calls here
+
+    // 1. REQUIRED (Parts 1 & 2): A method to store files on the server
+
+    rpc StoreFile(stream FileContents) returns (FileDetails);
+
+    // 2. REQUIRED (Parts 1 & 2): A method to fetch files from the server
+
+    rpc FetchFile(File) returns (stream FileContents);
+
+    // 3. REQUIRED (Parts 1 & 2): A method to delete files from the server
+
+    rpc DeleteFile(File) returns (FileDetails);
+
+    // 4. REQUIRED (Parts 1 & 2): A method to list all files on the server
+
+    rpc ListFiles(NoArgs) returns (ListOfFiles);
+
+    // 5. REQUIRED (Parts 1 & 2): A method to get the status of a file on the server
+
+    rpc GetFileStatus(File) returns(FileStatus);
+
+    // 7. Any other methods you deem necessary to complete the tasks of this assignment
+
+
+
+}
+
+// Add your message types here
+
+message FileDetails {
+    string fileName = 1;
+    int32 modifiedTime = 2;
+}
+
+message ListOfFiles {
+    repeated FileDetails fileDetails = 1;
+}
+
+message NoArgs {
+
+}
+
+ message FileContents {
+     bytes chunckContent = 1;
+ }
+
+ message File {
+     string fileName = 1;
+ }
+
+ message FileStatus {
+        string fileName = 1;
+        int32 size = 2;
+        int32 modifiedTime = 3;
+        int32 creationTime = 4;
+    }
+
+message Result {
+    int32 result = 1;
+}
+
+
